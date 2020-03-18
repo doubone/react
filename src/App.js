@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button} from 'antd';
-// import 'antd/es/button/style/css'; // 加载 CSS
 import './App.css';
 
 function App() {
