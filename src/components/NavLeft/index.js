@@ -1,46 +1,28 @@
 import React from 'react';
 import menuConfig from './../../config/menuConfig';
-import { MailOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import Item from 'antd/lib/list/Item';
+import './index.css'
 const { SubMenu } = Menu;
 export default class NavLeft extends React.Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state={
-    //         menuList:[]
-    //     }
-    // }
-    // componentDidMount(){
-    //     this.setState({
-    //         menuList:menuConfig
-    //     })
-    // }
+    renderMenu(data) {
+        return data.map(item => {
+            if (item.children) {
+                return <SubMenu key={item.key} title={item.title}>{this.renderMenu(item.children)}</SubMenu>
+            }
+            return <Menu.Item key={item.key}>{item.title}</Menu.Item>
+        })
+    }
     render() {
         return (
-            <Menu mode="vertical">
-                {/* <SubMenu
-                    key="sub1"
-                    title={
-                        <span>
-                            <MailOutlined />
-                            <span>Navigation One</span>
-                        </span>
-                    }
-                >
-                        <Menu.Item key="3">Option 3</Menu.Item>
-                        <Menu.Item key="4">Option 4</Menu.Item>
-                </SubMenu> */}
-                {menuConfig.map((item)=>{
-                  return   <SubMenu key={item.key} title ={
-                        <span>
-
-                            <MailOutlined />
-                    <span>{item.title}</span>
-                        </span>
-                    }></SubMenu>
-                })}
-            </Menu>
+            <div>
+                <div className="logo">
+                    <img src="./logo-ant.svg" alt="" />
+                    <h1 >卧龙岗</h1>
+                </div>
+                <Menu mode="vertical" theme='dark'>
+                    {this.renderMenu(menuConfig)}
+                </Menu>
+            </div>
         )
     }
 }
